@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, Animated, Easing } from 'react-native';
 import { Svg, Line, Circle } from 'react-native-svg';
 
-// --- LÓGICA DO JOGO (NÃO ALTERADA) ---
+
 const words = [
   'ABACAXI', 'BANANA', 'MORANGO', 'LARANJA', 'UVA', 'MELANCIA', 'GOIABA', 'PERA',
   'MACA', 'KIWI', 'MANGA', 'CAJU', 'ACEROLA', 'PITANGA', 'JABUTICABA', 'CARAMBOLA',
@@ -11,22 +11,20 @@ const words = [
 ];
 const getRandomWord = () => words[Math.floor(Math.random() * words.length)];
 
-// --- COMPONENTE PRINCIPAL COM NOVO DESIGN ---
+
 const App = () => {
   const [secretWord, setSecretWord] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'won', 'lost'
+  const [gameStatus, setGameStatus] = useState('playing'); 
   const [isModalVisible, setModalVisible] = useState(false);
 
-  // Animação de tremor
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     startNewGame();
   }, []);
 
-  // Efeito para verificar vitória ou derrota
   useEffect(() => {
     if (secretWord && wrongLetters.length === 6) {
       setGameStatus('lost');
@@ -38,7 +36,6 @@ const App = () => {
     }
   }, [guessedLetters, wrongLetters, secretWord]);
 
-  // Função para iniciar um novo jogo
   const startNewGame = () => {
     setSecretWord(getRandomWord());
     setGuessedLetters([]);
@@ -47,7 +44,7 @@ const App = () => {
     setModalVisible(false);
   };
 
-  // Função para lidar com o pressionar de uma letra
+  
   const handleLetterPress = (letter) => {
     if (gameStatus !== 'playing' || guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
       return;
@@ -61,7 +58,7 @@ const App = () => {
     }
   };
   
-  // Função para disparar a animação de tremor
+  
   const triggerShakeAnimation = () => {
     shakeAnimation.setValue(0);
     Animated.timing(shakeAnimation, {
@@ -72,15 +69,11 @@ const App = () => {
     }).start();
   };
 
-  // Interpolação para o efeito de tremor
   const shakeInterpolate = shakeAnimation.interpolate({
     inputRange: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     outputRange: [0, -10, 10, -10, 10, -5, 5, -2, 2, 0, 0],
   });
 
-  // --- NOVOS COMPONENTES DE RENDERIZAÇÃO ---
-
-  // Renderiza a palavra com caixas estilizadas e animação
   const renderWord = () => (
     <View style={styles.wordContainer}>
       {secretWord.split('').map((letter, index) => (
@@ -95,7 +88,6 @@ const App = () => {
     </View>
   );
 
-  // Renderiza o teclado virtual com novo design
   const renderKeyboard = () => {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     return (
@@ -116,11 +108,10 @@ const App = () => {
       </View>
     );
   };
-
-  // Renderiza o desenho da forca com novo design e animação
+  
   const renderHangman = () => {
     const errors = wrongLetters.length;
-    const strokeColor = '#E0E0E0'; // Cor do traço da forca
+    const strokeColor = '#E0E0E0'; 
 
     return (
       <Animated.View style={[styles.hangmanContainer, { transform: [{ translateX: shakeInterpolate }] }]}>
@@ -143,7 +134,6 @@ const App = () => {
     );
   };
 
-  // Renderiza o modal customizado de fim de jogo
   const renderModal = () => (
     <Modal
       visible={isModalVisible}
@@ -187,11 +177,11 @@ const App = () => {
   );
 };
 
-// --- NOVOS ESTILOS (DARK MODE & PREMIUM) ---
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Fundo escuro
+    backgroundColor: '#121212', 
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingVertical: 40,
@@ -199,7 +189,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#E0E0E0', // Texto claro
+    color: '#E0E0E0', 
     letterSpacing: 5,
   },
   hangmanContainer: {
@@ -209,7 +199,7 @@ const styles = StyleSheet.create({
   },
   attemptsText: {
     fontSize: 16,
-    color: '#9E9E9E', // Cinza para texto secundário
+    color: '#9E9E9E',
     marginBottom: 10,
   },
   wordContainer: {
@@ -222,7 +212,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 50,
     borderBottomWidth: 3,
-    borderColor: '#424242', // Borda da caixa da letra
+    borderColor: '#424242', 
     margin: 4,
     alignItems: 'center',
     justifyContent: 'center',
@@ -230,7 +220,7 @@ const styles = StyleSheet.create({
   wordLetter: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#00BFFF', // Cor de destaque para letra correta
+    color: '#00BFFF', 
   },
   keyboardContainer: {
     flexDirection: 'row',
@@ -243,15 +233,13 @@ const styles = StyleSheet.create({
     height: 45,
     margin: 4,
     borderRadius: 22,
-    backgroundColor: '#212121', // Fundo da tecla
+    backgroundColor: '#212121', 
     alignItems: 'center',
     justifyContent: 'center',
-    // Sombra para iOS
     shadowColor: '#00BFFF',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
-    // Sombra para Android
     elevation: 5,
   },
   keyDisabled: {
@@ -263,7 +251,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  // Estilos do Modal
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -296,7 +283,7 @@ const styles = StyleSheet.create({
   modalWord: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#00BFFF', // Cor de destaque
+    color: '#00BFFF', 
     letterSpacing: 3,
     marginBottom: 25,
   },
