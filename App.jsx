@@ -178,6 +178,10 @@ const App = () => {
       
       {renderKeyboard()}
 
+      <TouchableOpacity style={styles.restartButton} onPress={startNewGame}>
+        <Text style={styles.restartButtonText}>Reiniciar Jogo</Text>
+      </TouchableOpacity>
+
       {renderModal()}
     </View>
   );
@@ -305,6 +309,19 @@ const styles = StyleSheet.create({
   modalButtonText: {
     color: '#121212',
     fontSize: 18,
+    fontWeight: 'bold',
+  },
+  restartButton: {
+    marginTop: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#9E9E9E',
+  },
+  restartButtonText: {
+    color: '#9E9E9E',
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });
