@@ -1,4 +1,3 @@
-Jogo da Forca com React Native hanged_man:
 📜 Sobre o Projeto
 Este é um clássico Jogo da Forca desenvolvido como um aplicativo mobile utilizando React Native e Expo. O projeto foi criado para demonstrar habilidades em desenvolvimento mobile, incluindo gerenciamento de estado com React Hooks, estilização avançada e implementação de lógica de jogo.
 
@@ -65,3 +64,4 @@ Ou, no terminal, pressione a para abrir no emulador Android ou i para o simulado
 
 📄 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
